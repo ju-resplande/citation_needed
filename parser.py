@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 
 session = requests.Session()
 URL = "https://en.wikipedia.org/w/api.php"
-page = "Pet door"
+page = "The Fergies"
 
 QUERY = {
     "action": "query",
@@ -38,8 +38,7 @@ text = unicode(BeautifulSoup(text, "html.parser")).encode('utf-8')
 #Work on wikitext symbols
 text = re.sub("\[\[File.*\]\]","",text) #Remove image links
 text = re.sub("'''", "",text) #remove extra quotations marks
-text = re.sub("''", "'",text) #remove double quotations marks
-#text = re.sub('""', '"',text) #remove double quotations marks
+#text = re.sub('""', '',text) #remove double quotations marks
 text = re.sub("\[\[.+\|(.+?)\]\]", "\\1", text)
 #replace link_name that has sinonyms [[Consumer IR|infrared]] 
 text = re.sub("\[\[(.+?)\]\]", "\\1", text)
