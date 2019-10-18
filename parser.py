@@ -3,16 +3,23 @@ import requests               #parse wikipedia
 import pandas as pd           #generate table
 import mwparserfromhell       #treats {}
 import nltk.data              #break into sentences
+import os
 
 session = requests.Session()
 URL = "https://en.wikipedia.org/w/api.php"
 page = "The Fergies"
+txt = "table.txt"
+model = "models/model.h5"
+word_dict = "dicts/word_dict.pck"
+section_dict = "dicts/section_dict.pck"
+output_folder = "output_folder"
+run_model = "python run_citation_need_model.py -i " + txt + " -m " + model + " -v " + word_dict + " -s " + section_dict + " -o " + output_folder
 
 QUERY = {
     "action": "query",
     "prop" : "revisions", 
 	"rvlimit": "1",
-	"rvprop": "ids|timestamp", 
+	"rvprop": "timestamp", 
     "format": "json", #Parameters Description Format
 }
 
@@ -37,13 +44,28 @@ text = page["parse"]["wikitext"]["*"].encode('utf-8') #get text
 wikicode = mwparserfromhell.parse(text)
 templates = wikicode.filter_templates()
 
+#nowiki and pre
+#magic words and variables
+#template.name.matches("plainlist") | \
+#template.name.matches("unbullet list") | \
+#template.name.matches("quote") | \
+#template.name.matches("colbegin") | \
+#template.name.matches("defn")
+
 def remove_cases(templates, text):
 	for template in templates:
 		if template.name.matches("pad"):
 			text = text.replace(template.encode('utf-8'), " ")
 		elif re.search("IPAC",template.name.encode('utf-8'), flags=re.IGNORECASE):
 			text = text.replace(template.encode('utf-8'), "")
-		elif template.name.matches("fullurl"):
+		elif template.name.matches("fullurl") | \
+			template.name.matches("edit") | \
+			template.name.matches("outdent") | \
+			template.name.matches("outdent2") | \
+			template.name.matches("cite book") | \
+			template.name.matches("cite web") | \
+			template.name.matches("citation needed") | \
+			template.name.matches("math"):
 			text = text.replace(template.encode('utf-8'), "")
 		elif template.name.matches("clear") | \
 			 template.name.matches("break") | \
@@ -55,10 +77,19 @@ def remove_cases(templates, text):
 			 template.name.matches("font color") | \
 			 bool(re.search("xt",template.name.encode('utf-8'), flags=re.IGNORECASE)) | \
 			 template.name.matches("strike") | \
+			 template.name.matches("center") | \
 			 template.name.matches("stack") | \
 			 template.name.matches("ISBN"):
-			text = text.replace(template.param[len(template.param)-1].encode('utf-8'), "")
-			#make recursion
+			size = len(template.param)
+			last = template.param[size-1].encode('utf-8')
+			
+			wikicode = mwparserfromhell.parse(last)
+			braces = wikicode.filter_templates()
+			
+			if braces:
+				last = remove_cases(braces, last)
+			
+			text = text.replace(last,template.encode('utf-8'))
 		else:
 			text = text.replace(template.encode('utf-8'), "")
 	return text
@@ -174,7 +205,6 @@ for i in range(len(section_text)):
 					k = k - 1
 			else:
 				sentence.append(False)
-			
 		paragraph.append(sentence)
 	citation.append(paragraph)
 
@@ -195,11 +225,12 @@ for i in range(len(section_text)):
 				sentence["prg_idx"] = j
 				sentence["sentence_idx"] = k
 				sentence["statement"] = section_text[i][j][k]
-				sentence["citation"] = citation[i][j][k]
+				sentence["citations"] = citation[i][j][k]
 				table.append(sentence)
 
 data = pd.DataFrame(table, 
 	columns=["entity_id","revision_id","timestamp","entity_title",
-	"section_id","section", "prg_idx", "sentence_idx", "statement", "citation"])
-data.to_csv("table.txt", sep = "\t", index = False)
+	"section_id","section", "prg_idx", "sentence_idx", "statement", "citations"])
+data.to_csv(txt, sep = "\t", index = False)
 
+os.system(run_model)
