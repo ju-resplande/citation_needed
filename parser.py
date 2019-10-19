@@ -1,18 +1,25 @@
-import re
-import requests
-import pandas as pd
-import mwparserfromhell
-from bs4 import BeautifulSoup
+import re                     #treat wikitext
+import requests               #parse wikipedia
+import pandas as pd           #generate table
+import nltk.data              #break into sentences
+import os
+from treatwikitext import treat_wikitext 
 
 session = requests.Session()
 URL = "https://en.wikipedia.org/w/api.php"
 page = "The Fergies"
+txt = "table.txt"
+model = "models/model.h5"
+word_dict = "dicts/word_dict.pck"
+section_dict = "dicts/section_dict.pck"
+output_folder = "output_folder"
+run_model = "python run_citation_need_model.py -i " + txt + " -m " + model + " -v " + word_dict + " -s " + section_dict + " -o " + output_folder
 
 QUERY = {
     "action": "query",
     "prop" : "revisions", 
 	"rvlimit": "1",
-	"rvprop": "ids|timestamp|sha1", 
+	"rvprop": "timestamp", 
     "format": "json", #Parameters Description Format
 }
 
@@ -32,31 +39,13 @@ request2 = session.get(url=URL, params=PARSE)
 page = request2.json()
 
 text = page["parse"]["wikitext"]["*"].encode('utf-8') #get text
-text = unicode(BeautifulSoup(text, "html.parser")).encode('utf-8')
-#Remove html symbols
-
-#Work on wikitext symbols
-text = re.sub("\[\[File.*\]\]","",text) #Remove image links
-text = re.sub("'''", "",text) #remove extra quotations marks
-#text = re.sub('""', '',text) #remove double quotations marks
-text = re.sub("\[\[.+\|(.+?)\]\]", "\\1", text)
-#replace link_name that has sinonyms [[Consumer IR|infrared]] 
-text = re.sub("\[\[(.+?)\]\]", "\\1", text)
-#replace link name w/ no synonims
-
-
-wikicode = mwparserfromhell.parse(text)
-templates = wikicode.filter_templates()
-for trash in templates: #remove junk
-	text = text.replace(trash.encode('utf-8'), "")
+text = treat_wikitext(text)
 
 page["parse"]["title"] = re.sub("\s", "_",page["parse"]["title"]) #Put underscores
 
 section_text = re.split("==.*==", text) #Generate sections
-
-section_name =  re.findall("==(.*)==", text) #Get sessions ids
+section_name = re.findall("==(.*)==", text) #Get sessions ids
 section_name.insert(0, "MAIN_SECTION") #insert MAIN_SECTION
-
 
 #Remove unecessary sections
 for key in section_name:
@@ -86,7 +75,7 @@ for key in section_name:
 for i in range(len(section_name)): #Put underscores
 	section_name[i] = re.sub("\s", "_",section_name[i])
 
-for i in range(len(section_text)): #Generate paragraphs
+for i in range(len(section_text)): #break into paragraphs
 	section_text[i] = re.split("\n\n", section_text[i])
 
 #Remove empty paragraphs
@@ -101,36 +90,32 @@ for i in range(len(section_text)):
 	for j in range(len(section_text[i])):
 		section_text[i][j] = re.sub("\n", "", section_text[i][j]) 
 
-citation = [] #get citation
+#break into sentences
+nltk.download('punkt')
+tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
+for i in range(len(section_text)):
+	for j in range(len(section_text[i])):
+			section_text[i][j] = tokenizer.tokenize(section_text[i][j])
+
+#get citation booleans
+citation = []
 for i in range(len(section_text)):
 	paragraph = []
 	for j in range(len(section_text[i])):
-		if re.search("<ref.*>.*</ref>", section_text[i][j]):
-			section_text[i][j] = re.split("<ref.*>.*</ref>", section_text[i][j])  #split in sentences
-			if len(section_text[i][j]) == 2 and section_text[i][j][1] == "": #has just one cell and other empty cell = whole paragraph cited
-				section_text[i][j] = section_text[i][j][0]
-				paragraph.append(True)
-			else: #needs to be devided in citations
-				sentence = []
-				for k in range(len(section_text[i][j])):
-					sentence.append(True)
-				if section_text[i][j][len(section_text[i][j])-1] == '': 
+		sentence = []
+		for k in range(len(section_text[i][j])):
+			if re.findall("<ref></ref>", section_text[i][j][k]):
+				section_text[i][j][k] = re.sub("<ref></ref>", "", section_text[i][j][k])
+				if re.findall("\w", section_text[i][j][k]):
 					sentence.append(True)
 				else:
-					sentence.append(False)
-				paragraph.append(sentence)
-		else: #whole paragraph not cited
-			paragraph.append(False)
+					sentence[len(sentence)-1] = True
+					section_text[i][j].remove(section_text[i][j][k])
+					k = k - 1
+			else:
+				sentence.append(False)
+		paragraph.append(sentence)
 	citation.append(paragraph)
-
-#remove others html marks
-for i in range(len(section_text)):
-	for j in range(len(section_text[i])):
-		if type(section_text[i][j]) == list:
-			for k in range(len(section_text[i][j])):
-				section_text[i][j][k] = re.sub("<.+?>","",section_text[i][j][k])
-		else:
-			section_text[i][j] = re.sub("<.+?>","",section_text[i][j])
 
 pageid = unicode(page["parse"]["pageid"])
 timestamp = revision["query"]["pages"][pageid]["revisions"][0]["timestamp"]
@@ -138,7 +123,6 @@ timestamp = revision["query"]["pages"][pageid]["revisions"][0]["timestamp"]
 table = []
 for i in range(len(section_text)):
 	for j in range(len(section_text[i])):
-		if type(section_text[i][j]) == list:
 			for k in range(len(section_text[i][j])):
 				sentence = {}
 				sentence["entity_id"] = page["parse"]["pageid"]
@@ -147,27 +131,13 @@ for i in range(len(section_text)):
 				sentence["entity_title"] = page["parse"]["title"]
 				sentence["section_id"] = i
 				sentence["section"] = section_name[i]
-				sentence["prg_idx"] = j+1
-				sentence["sentence_idx"] = k+1
+				sentence["prg_idx"] = j
+				sentence["sentence_idx"] = k
 				sentence["statement"] = section_text[i][j][k]
-				sentence["citation"] = citation[i][j][k]
+				sentence["citations"] = citation[i][j][k]
 				table.append(sentence)
-		else:
-			sentence = {}
-			sentence["entity_id"] = page["parse"]["pageid"]
-			sentence["revision_id"] = page["parse"]["revid"]
-			sentence["timestamp"] = timestamp
-			sentence["entity_title"] = page["parse"]["title"]
-			sentence["section_id"] = i
-			sentence["section"] = section_name[i]
-			sentence["prg_idx"] = j+1
-			sentence["sentence_idx"] = -1
-			sentence["statement"] = section_text[i][j]
-			sentence["citation"] = citation[i][j]
-			table.append(sentence)
 
 data = pd.DataFrame(table, 
 	columns=["entity_id","revision_id","timestamp","entity_title",
-	"section_id","section", "prg_idx", "sentence_idx", "statement", "citation"])
-data.to_csv("table.txt", sep = "\t", index = False)
-
+	"section_id","section", "prg_idx", "sentence_idx", "statement", "citations"])
+data.to_csv(txt, sep = "\t", index = False)
