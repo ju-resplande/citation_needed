@@ -1,0 +1,14 @@
+entity_id	revision_id	timestamp	entity_title	section_id	section	prg_idx	sentence_idx	statement	citations
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	0	MAIN_SECTION	0	0	The Fergies is a folk/indie/rock/pop band from Brisbane, Australia formed by the five Ferguson siblings, Kahlia, Daniel, Joel, Nathan, and Shani.	False
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	0	MAIN_SECTION	0	1	Their music has grown in popularity due to their busking performances on Queen Street Mall and originals uploaded to YouTube.	False
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	0	MAIN_SECTION	1	0	In the band's earlier years, The Fergies gained recognition by winning a number of local, state and national band and songwriting competitions and awards.	False
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	0	MAIN_SECTION	1	1	The Fergies' lead singer, Kahlia Ferguson, won the senior category of the Australian Children's Music Foundation's (ACMF) National Song Writing Competition two years in a row, with Little Bird in 2008 and Soldier Boy in 2009.	True
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	0	MAIN_SECTION	1	2	In 2010 they were also awarded the Secondary School Award in the Queensland music industry's Q Song Awards in Brisbane.	True
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	0	MAIN_SECTION	1	3	The group also won in the YoungStar Awards 2010-2011.	True
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	0	MAIN_SECTION	2	0	In recent years the band shifted their focus to busking acoustically on Brisbane's busiest city street, Queen Street Mall.	False
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	0	MAIN_SECTION	2	1	Describing the motivation behind their street performing, Kahlia Ferguson explains, 'When you busk there's absolutely nowhere to hide.	False
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	0	MAIN_SECTION	2	2	You face the crowd and deliver something engaging or people just ignore you.	False
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	0	MAIN_SECTION	2	3	It keeps you real as a performer - gets you out from behind technology and connected to real people.'	True
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	1	Performances	0	0	In 2010 they opened for Powderfinger at the Caloundra Music Festival.	True
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	1	Performances	0	1	The band also played at the 2010 Hays Inlet Festival, on 6 June.	True
+36492250	870654167	2018-11-26T05:39:10Z	The_Fergies	2	Members	0	0	* Kahlia Ferguson (b.1993): lead vocals, guitar, keys* Daniel Ferguson (b.1994): lead vocals, lead guitar* Joel Ferguson (b.1996): lead vocals, drums* Nathan Ferguson (b.1997): lead vocals, bass * Shani Ferguson (b.1999): lead vocals, keyboard	False

@@ -1,0 +1,151 @@
+Check about it:
+[edit]
+{{code}}
+{{anchor|Old title}}
+
+
+Needs to be totally removed:
+---- 
+{{TOC right}} {{TOC left}} {{TOC limit}} {{TOC left|width=30%}}
+{{TOC limit|n}}  {{Compact ToC}} {{Horizontal TOC}}
+{{:pageX|transcludesection=chapter1}}
+</ hr>
+<!-- and -->
+{|
+|+ [caption text]
+|-
+! scope="col" | [column header 1]
+! scope="col" | [column header 2]
+! scope="col" | [column header 3]
+|-
+! scope="row" | [row header 1]
+| [normal cell 1,2] || [normal cell 1,3]
+|-
+! scope="row" | [row header 2]
+| [normal cell 2,2] || [normal cell 2,3]
+...
+|}
+[https://www.guardian.co.uk/usa/story/0,12271,1650417,00.html]
+<source lang="Haskell">
+  primes = sieve [2..]
+  sieve (p : xs) = p : sieve [x | x <- xs, x `mod` p > 0]
+</source>
+<imagemap>
+File:Bryan-Sewall.jpg|thumb|upright=0.75|center|alt=1896 Democratic campaign poster
+circle 950 850 700 [[William Jennings Bryan|William J. Bryan]]
+circle 2950 850 700 [[Arthur Sewall]]
+default [http://projects.vassar.edu/1896/democrats.html 1896 Democrats Website]
+</imagemap>
+{{Color contrast ratio|#000000|#FFFFFF}}
+
+
+Needs to be partially removed:
+[[Help:Wiki markup#toc|Contents]]
+[[#toc|Contents]]
+[[#subsection name]]
+[[#sub-subsection name]]
+[[Help:Section#Section linking|Section linking]]
+[[#section name|displayed text]]
+[[page name#section name|displayed text]]
+<blockquote>...</blockquote>
+<small>...</small> 
+{{abbr|MSLP|Mean Sea Level Pressure}}
+{{lang|fr|Assemblée nationale}}
+<i lang="ru-Latn" title="Russian language text">tûndra</i>
+<span lang="fr" style="font-style:normal;" title="French language text">toundra</span>
+[https://www.example.org Text to display]
+[[Help:Template|]] Template
+[[Music: My life|]] My life
+[[w:en:Pipe (computing)|]] en:Pipe
+[[pipe (computing)|]] pipe
+[[project:a (b)|]] a
+[[Phoenix, Arizona|]] Phoenix
+[[:es:Wikipedia:Políticas|]] Wikipedia:Políticas
+[[/Subpage/]] Subpage
+{{u|Example}} Example
+{{u|Guywhositsbehindphilip12|Guy}} Guy
+{{Help link|Contents}} Contents
+{{bracket|[[Wikipedia:Example]]}} [Wikipedia:Example]
+{{bracket}} [
+{{gaps|−2.002|319|304|3622|(15)}} −2.002 319 304 3622 (15)
+{{gaps|A|B|C|gap=10em}} A B C
+{{not a typo|english}} english
+{{Not a typo|patt|ern}} pattern
+{{text|Fo|o}} Foo
+{{small|What a wonderful world}} What a wonderful world
+{{resize|1.2em|This text is 0.2em larger than normal.}}
+{{resize|This text defaults to 90% normal size.}}
+{{transl|ar|ISO|al-H̱awārizmī}}
+{{Script|Arab|أبجدية عربية}}‎
+{{See above}}
+{{See below}}
+{{See below|Radical Whigs}}
+{{See below|[[#Radical Whigs|below]]}}
+{{See above|[[#chart1992|1992 statistics graph]]}}
+{{Coloredlink|olive|Page name to link|Alternative text}} Alternative 
+Text
+{{Background color|red|Hello, world!}} Hello, world!
+{{highlight | text | pink | 2011-01-01 }} text
+{{highlight round|some text|bc=#ffa07a}} some text
+{{strikethrough|HyperText Markup Language}} HyperText Markup Language
+{{font|text=Some text.|font=Comic Sans MS|size=20px|color=#7f5620}}
+{{font|Illinois|font=Times|size=20px}}
+{{ font color | green | green text }} green text
+{{ font color | text = Wikipedia:Example | link = Wikipedia:Sandbox | bg = blue | fg = white }} Wikipedia:Example
+{{Quote
+|text=Quoted material.
+|author=First M. Last
+|title="Article Title"
+|source=''Book Title'' (date)
+}} 
+{{subst:poem|
+In Xanadu did Kubla Khan
+  A stately pleasure-dome decree:
+Where Alph, the sacred river, ran
+  Through caverns measureless to man
+Down to a sunless sea.
+
+So twice five miles of fertile ground
+  With walls and towers were girdled round:
+And there were gardens bright with sinuous rills,
+  Where blossomed many an incense-bearing tree;
+And here were forests ancient as the hills,
+  Enfolding sunny spots of greenery.
+}}
+
+{{Verse translation
+|Sprechen Sie Deutsch?
+'''Bist du sicher?'''
+|No, that's why I need this translation.
+I <u>think</u> I would know.}}
+
+<ref>{{cite web|url=http://www.qmusic.com.au/qsong/2010/index.cfm?contentID=496|title=Q Song Music Awards 2010 \u2013 Awards Night}}</ref> The band also played at the 2010 Hays Inlet Festival, on 6 June.<ref>{{cite web|url=http://haysinlet.com.au/2010-festival/|title=2010 Hays Inlet Festival}}</ref> In 2012, the band performed at ''The Hills Carnivale'' which was held on 19 May, in [[Ferny Hills, Queensland]].<ref>
+<span class="mw-headline" id="Section_linking">Section linking</span>
+<span id="anchor_name"></span>
+<span style="font-family:Gentium Plus, Charis SIL, Doulos SIL, serif">{{PUA|&#xf267;}}, {{PUA|&#xf268;}}</span>.
+
+Can be ignored:
+{{var}}
+
+Needs to be treated:
+{{plainlist |
+* White rose
+* Yellow rose
+* Pink rose
+* Red rose
+}}
+
+{{unbulleted list
+| White rose
+| Yellow rose
+| Pink rose
+| Red rose
+}}
+
+{{See below|{{section link||Radical Whigs}}, below}}
+
+Needs to maintain
+<ref></ref>
+
+Doesn't work
+
