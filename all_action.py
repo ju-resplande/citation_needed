@@ -3,11 +3,12 @@ from run_citation_need_model import text_to_word_list, construct_instance_reason
 from keras.models import load_model
 
 URL = "https://en.wikipedia.org/w/api.php"
-name = "The Fergies"
 txt = "table.txt"
 model = "models/model.h5"
 word_dict = "dicts/word_dict.pck"
 section_dict = "dicts/section_dict.pck"
+
+name = input("Insert page name:")
 
 example = Page(URL,name)
 example.generate_page()
