@@ -1,0 +1,141 @@
+#Case 1 
+
+#Case 2 
+
+#Case 3 
+
+# 
+
+#list
+
+
+
+
+
+
+
+#Case 4 
+
+#Case 5 
+
+#Case 6 
+
+#Case 7 <ref></ref>
+Yammer yammer yammer<ref></ref>.  Yammer yammer yammer<ref></ref>. 
+
+This is page content<ref></ref>.  This is more content<ref></ref>. 
+
+This is starter content<ref></ref>.  This is expert content<ref></ref>.  And more starter content<ref></ref>.  And more expert content<ref></ref>. 
+
+The quick brown fox jumps over the lazy dog<ref></ref>. 
+Amazingly few discotheques provide jukeboxes<ref></ref>. 
+How razorback-jumping frogs can level six piqued gymnasts<ref></ref>. 
+
+#Case 8 = 
+<ref></ref> The band also played at the 2010 Hays Inlet Festival, on 6 June<ref></ref>.  In 2012, the band performed at The Hills Carnivale which was held on 19 May, in Ferny Hills, Queensland<ref></ref>. 
+
+This is page content<ref></ref>. 
+...text<ref></ref>. 
+
+This part of the text requires clarification,<ref group=note>Listed separately from the citation</ref> whereas the entire text is cited<ref></ref>.  And this needs even more clarification<ref></ref>. 
+
+#Case 9 = <Ref>
+
+#Case 10 = other html markups
+...
+... 
+Section linking
+
+, .
+tûndra
+toundra
+
+
+
+
+
+help link (WILL Remove it)
+
+
+# ()
+project:a  project a
+
+#Case 11 =  ()|
+a  a
+project:a  project:a
+en:Pipe  en:Pipe
+project:a  project:a
+de:project:a  de:project:a
+
+: , |
+Boston
+Boston
+
+#Case 12 = |
+ My life My life
+Template Template
+
+#Case 13 = ()|
+pipe  pipe
+
+#Case 14 = ,|
+Phoenix Phoenix
+
+#Case 15 = |
+Wikipedia:Políticas Wikipedia:Políticas
+
+#Case 16 = /../
+
+
+remove
+
+s s
+s s
+s s
+
+#Case 19 = 
+
+
+
+
+#Case 22 = ...
+Contents
+Contents
+displayed text
+displayed text
+Section linking
+displayed text
+b b
+ab ab
+bc bc
+bc bc
+bcd bcd
+§ Suppressing page name
+§ Suppressing page name
+
+#Case 23 = ....
+subsection name
+sub-subsection name
+
+#Reverse pipe
+Doesn't need
+
+#Case 24 = ....
+abc abc
+ab ab
+ab ab
+a:b             
+ab ab
+Albert Einstein#Scientific career
+
+#Case 25 =  ...
+Text to display
+link text
+link text
+
+#Case 26 = [ ...] -> <Ref>
+In 2009 scientists reached one trillion electron volts.
+<Ref><\Ref>
+<Ref><\Ref>
+
+

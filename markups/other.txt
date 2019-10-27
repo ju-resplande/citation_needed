@@ -1,0 +1,99 @@
+#Case 1: tables
+{|
+|+ [caption text]
+|-
+! scope="col" | [column header 1]
+! scope="col" | [column header 2]
+! scope="col" | [column header 3]
+|-
+! scope="row" | [row header 1]
+| [normal cell 1,2] || [normal cell 1,3]
+|-
+! scope="row" | [row header 2]
+| [normal cell 2,2] || [normal cell 2,3]
+...
+|}
+
+
+#Case 2: horizontal rules
+---- 
+
+#Case 3: bold and italics
+'''''
+
+#Case 4: bold
+
+
+#Case 5: italics
+
+
+
+#Case 6: space html character
+&nbsp;
+&ensp;
+&emsp;
+
+#Case 7: Unordered list
+* Item1
+* Item2
+* Item3
+* Item4
+** Sub-item 4 a)
+*** Sub-item 4 a) 1.
+**** Sub-item 4 a) 1. i)
+**** Sub-item 4 a) 1. ii)
+** Sub-item 4 b)
+* Item5
+
+#Case 8: Ordered list
+# Item1
+# Item2
+# Item3
+# Item4
+## Sub-item 1
+### Sub-sub-item
+#### Sub-sub-sub-item
+## Sub-item 2
+# Item5
+
+#Case 9: Definition list
+; Term
+: Definition1
+: Definition2
+: Definition3
+: Definition4
+
+* Or create mixed lists
+*# and nest them
+*#* like this.
+*#*; Fruits
+*#*: Apple
+*#*: Blueberry
+
+# A line break in an item is done with HTML<br />like this.
+# Just breaking the line will accidentally end the list
+like this.
+# This was supposed to be item 3, not a new list.
+
+* A new paragraph in an item is also HTML.<p>Like so.</p>
+* Same goes for<blockquote>"block quotations"</blockquote>like that.
+* Note that these are done without line-breaking the wikimarkup.
+
+Check about it:
+
+
+Mixed examples:
+
+Schudson said the Constitution shaped citizenship in fundamental ways.<ref name="Schudson">{{Cite book |last=Schudson |first=Michael |title=The Good Citizen: A Brief History of American Civic Life |publisher=Simon & Schuster |date=1998 |url=https://books.google.com/books?id=aawMAQAAMAAJ |isbn=0-684-82729-8}}</ref> But elections in early American politics did not generate much interest<ref name="Schudson"/>{{rp|12}} while "open discussion of differences" was generally avoided.<ref name="Schudson"/>{{rp|18}} Citizenship later shifted to a polity of essentially "self-absorbed citizens", according to his analysis.<ref name="Schudson"/>{{rp|241}}
+
+Random paragraph of text. [[User:Example|Example]] ([[User talk:Example|talk]]) 09:20, 21 May 2011 (UTC)
+:Opening statement by [[User:User|Some other user]].
+:{{talk quote block|Quoting an item from random paragraph.}}
+:Response to quoted text. [[User:User|Some other user]] ([[User talk:User|talk]]) ~~~~~
+
+Needs to be treated:
+
+
+
+Doesn't work:
+

@@ -1,0 +1,46 @@
+#Case 1: tables
+
+
+
+#Case 2: horizontal rules
+ 
+
+#Case 3: bold and italics
+
+
+#Case 4: bold
+
+
+#Case 5: italics
+
+
+
+#Case 6: space html character
+ ;
+ ;
+ ;
+
+Check about it:
+
+ wp:  
+ pagename }} 
+ pagename }} 
+ pagename }} 
+  
+ {{ 1x | label }} 
+
+Mixed examples:
+
+Schudson said the Constitution shaped citizenship in fundamental ways<ref></ref>.  But elections in early American politics did not generate much interest<ref></ref> while "open discussion of differences" was generally avoided<ref></ref>.  Citizenship later shifted to a polity of essentially "self-absorbed citizens", according to his analysis<ref></ref>. 
+
+Needs to be treated:
+
+Random paragraph of text. Example (talk) 09:20, 21 May 2011 (UTC)
+:Opening statement by Some other user.
+:
+:Response to quoted text. Some other user (talk) ~~~~~
+
+
+
+Doesn't work
+
