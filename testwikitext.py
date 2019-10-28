@@ -1,5 +1,10 @@
 from treatwikitext import treat_wikitext
-f = open("test markups.txt","r")
+name = "in.txt"
+f = open(name,"r")
 text = f.read()
 text = treat_wikitext(text)
-print text
+f.close()
+
+f = open("out_"+name,"w")
+f.write(text)
+f.close
