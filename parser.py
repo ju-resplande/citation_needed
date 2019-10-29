@@ -25,7 +25,7 @@ class Page:
 		try:	
 			redirect = re.search("\#REDIRECT \[\[(.+?)\]\]" ,page["parse"]["wikitext"]["*"])
 		except:
-			print "Page "+ self.name + " doesn't exist."
+			print "Page "+ self.name + " doesn't exist. (Case sensitive)"
 			exit()
 		
 		if redirect:
@@ -55,75 +55,65 @@ class Page:
 		self.page["parse"]["title"] = re.sub("\s", "_",self.page["parse"]["title"]) #Put underscores
 		section_text = re.split("==.+==", self.text)
 		section_name = re.findall("==(.+?)==", self.text)
-		for i in range(len(section_name)):
+		for i,v in enumerate(section_name):
 			section_name[i] = re.sub("=", "", section_name[i])
 		section_name.insert(0, "MAIN_SECTION") #insert MAIN_SECTION
 		
 		#Remove unecessary sections
-		for key in section_name:
-			if re.search("See also", key):
-				index = section_name.index(key)
-				section_text.remove(section_text[index])
-				section_name.remove(key)
-				
-		for key in section_name:
-			if re.search("References", key):
-				index = section_name.index(key)
-				section_text.remove(section_text[index])
-				section_name.remove(key)
+		ignore_sections = ["See also", "References", "External links", "Further reading"]
+		
+		for name in ignore_sections:
+			for key in section_name:
+				if re.search(name, key):
+					index = section_name.index(key)
+					section_text.remove(section_text[index])
+					section_name.remove(key)
 
-		for key in section_name:
-			if re.search("External links", key):
-				index = section_name.index(key)
-				section_text.remove(section_text[index])
-				section_name.remove(key)
-
-		for key in section_name:
-			if re.search("Further reading", key):
-				index = section_name.index(key)
-				section_text.remove(section_text[index])
-				section_name.remove(key)
-
-		for i in range(len(section_name)): #Put underscores
-			section_name[i] = re.sub("\s", "_",section_name[i])
+		for i, v in enumerate(section_name): #Put underscores
+			section_name[i] = re.sub(" ", "_", section_name[i])
 		
 		self.section_name = section_name
 		self.section_text = section_text
 		return section_name, section_text
 
 	def generate_paragraphs(self):
-		for i in range(len(self.section_text)): #break into paragraphs
+		for i,v in enumerate(self.section_text): #break into paragraphs
 			self.section_text[i] = re.split("\n\n", self.section_text[i])
 
 		#Remove empty paragraphs
-		for i in range(len(self.section_text)): 
+		for i,v in enumerate(self.section_text): 
 			while "\n" in self.section_text[i]:
 				self.section_text[i].remove("\n")
 			while "" in self.section_text[i]:
 				self.section_text[i].remove("")
 
 		#Remove \n in paragraphs
-		for i in range(len(self.section_text)):
-			for j in range(len(self.section_text[i])):
+		for i,v in enumerate(self.section_text):
+			for j,w in enumerate(self.section_text[i]):
 				self.section_text[i][j] = re.sub("\n", "", self.section_text[i][j])
 
 	def generate_sentences(self):
 		#break into sentences
 		nltk.download('punkt')
 		tokenizer = nltk.data.load('tokenizers/punkt/english.pickle')
-		for i in range(len(self.section_text)):
-			for j in range(len(self.section_text[i])):
+		for i,v in enumerate(self.section_text):
+			for j,w in enumerate(self.section_text[i]):
 					self.section_text[i][j] = tokenizer.tokenize(self.section_text[i][j].decode("utf-8"))
 
 		#get citation booleans
 		citation = []
-		for i in range(len(self.section_text)):
+		for i,v in enumerate(self.section_text):
 			paragraph = []
-			for j in range(len(self.section_text[i])):
+			for j,w in enumerate(self.section_text[i]):
 				sentence = []
-				for k in range(len(self.section_text[i][j])):
-					if re.findall("<ref></ref>|<Ref></Ref>", self.section_text[i][j][k]):
-						self.section_text[i][j][k] = re.sub("<ref></ref>|<Ref></Ref>", "", self.section_text[i][j][k])
+				for k,t in enumerate(self.section_text[i][j]):
+					#if len(self.section_text[i][j][k].split(" ")) <= 2:
+						#self.section_text[i][j].remove(self.section_text[i][j][k])
+						#continue
+					
+					if re.findall("<ref>[\d\D]*?</ref>|<Ref>[\d\D]*?</Ref>", self.section_text[i][j][k]):
+						self.section_text[i][j][k] = re.sub("<ref>[\d\D]*?</ref>|<Ref>[\d\D]*?</Ref>", "", self.section_text[i][j][k])
+
 						if re.findall("\w", self.section_text[i][j][k]):
 							sentence.append(True)
 						else:
@@ -143,9 +133,9 @@ class Page:
 		timestamp = self.revision["query"]["pages"][pageid]["revisions"][0]["timestamp"]
 
 		table = []
-		for i in range(len(self.section_text)):
-			for j in range(len(self.section_text[i])):
-					for k in range(len(self.section_text[i][j])):
+		for i,v in enumerate(self.section_text):
+			for j,w in enumerate(self.section_text[i]):
+					for k,t in enumerate(self.section_text[i][j]):
 						sentence = {}
 						sentence["entity_id"] = self.page["parse"]["pageid"]
 						sentence["revision_id"] = self.page["parse"]["revid"]

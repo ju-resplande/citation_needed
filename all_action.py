@@ -13,6 +13,12 @@ name = raw_input("Insert page name: ")
 
 example = Page(URL,name)
 example.generate_page()
+p = open("in.txt", "w")
+p.write(example.page["parse"]["wikitext"]["*"].encode("utf-8"))
+p.close()
+p = open("out.txt", "w")
+p.write(example.text)
+p.close()
 example.generate_sections()
 example.generate_paragraphs()
 example.generate_sentences()
@@ -36,9 +42,7 @@ for idx, y_pred in enumerate(pred):
 need_citation = [x for _,x in sorted(zip(prediction, need_citation))]
 need_citation.reverse()
 
-fout = open(output, 'wt')
-for statement in need_citation:
-	fout.write(statement)
-	fout.write("\n")
-fout.flush()
-fout.close()
+with open(output, 'wt') as fout:
+	for statement in need_citation:
+		fout.write(statement)
+		fout.write("\n")
