@@ -2,7 +2,7 @@ import re
 import requests               #parse wikipedia
 import pandas as pd           #generate table
 import nltk.data              #break into sentences
-from treatwikitext import treat_wikitext 
+from markups.treatwikitext import treat_wikitext
 
 class Page:
 	def __init__(self, URL, name):
