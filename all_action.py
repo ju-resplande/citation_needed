@@ -13,16 +13,11 @@ name = raw_input("Insert page name: ")
 
 example = Page(URL,name)
 example.generate_page()
-#p = open("in.txt", "w")
-#p.write(example.page["parse"]["wikitext"]["*"].encode("utf-8"))
-#p.close()
-#p = open("out.txt", "w")
-#p.write(example.text)
-#p.close()
 example.generate_sections()
 example.generate_paragraphs()
 example.generate_sentences()
 example.generate_table(table)
+print table + " generated"
 
 model = load_model(model)
 max_seq_length = model.input[0].shape[1].value
@@ -32,17 +27,22 @@ pred = model.predict([X, sections])
 
 need_citation = []
 prediction = []
-min_prediction = 0.9 #Ask about the minimum
+min_prediction = 0.9
+
+print "Generating " + output + " with min_pediction = " + str(min_prediction)
 
 for idx, y_pred in enumerate(pred):
 	if y_pred[0] > min_prediction and str(y[idx]) == '[1. 0.]':
 		need_citation.append(outstring[idx])
 		prediction.append(y_pred[0])
 
-need_citation = [x for _,x in sorted(zip(prediction, need_citation))]
-need_citation.reverse()
+need_citation = [x for _, x in sorted(zip(prediction,need_citation), key=lambda pair: pair[0])]
+prediction = sorted(prediction)
+#descending order
+need_citation.reverse() 
+prediction.reverse()
 
 with open(output, 'wt') as fout:
-	for statement in need_citation:
-		fout.write(statement)
+	for i,v in enumerate(need_citation):
+		fout.write(need_citation[i])
 		fout.write("\n")
