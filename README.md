@@ -24,9 +24,7 @@ Code for outreatchy Wikimedia project.
 
 ## Usage
 
-1. Run all_action.py and insert a page name (case sensite). 
-
-It will generate in output_folder:
+Run all_action.py and insert a page name (case sensite). It will generate in output_folder:
 
 * table.txt - used by run_citation_need_model.py
 * need_citation.txt - needs citation sentence list 
