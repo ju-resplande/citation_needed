@@ -7,9 +7,6 @@ Code for outreatchy Wikimedia project.
 2. Download section and language dictionaries and models from the same repository and rename as "models/model.h5", "dicts/word_dict.pck" and  "dicts/section_dict.pck".
 3. Download requirements.
 
-# Observation
-[Miniconda](https://docs.conda.io/en/latest/miniconda.html) enviroment was used install the requirements, but [Tensowflow Custom Build](https://github.com/lakshayg/tensorflow-build) was also used (TensorFlow 1.6.0 Ubuntu 16.04) due to "Your CPU supports instructions that this TensorFlow binary was not compiled to use" error. Perheaps, "outreatchy.yml" won't work in your device.
-
 ### System Requirements
 
 * python 2.7
@@ -21,6 +18,9 @@ Code for outreatchy Wikimedia project.
 * requests
 * mwparserfromwell
 * h5py
+
+### Observation
+[Miniconda](https://docs.conda.io/en/latest/miniconda.html) enviroment was used install the requirements, but [Tensowflow Custom Build](https://github.com/lakshayg/tensorflow-build) was also used (TensorFlow 1.6.0 Ubuntu 16.04) due to "Your CPU supports instructions that this TensorFlow binary was not compiled to use" error. Perheaps, "outreatchy.yml" won't work in your device.
 
 ## Usage
 
