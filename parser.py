@@ -107,22 +107,13 @@ class Page:
 			for j,w in enumerate(self.section_text[i]):
 				sentence = []
 				for k,t in enumerate(self.section_text[i][j]):
-					#if len(self.section_text[i][j][k].split(" ")) <= 2:
-						#self.section_text[i][j].remove(self.section_text[i][j][k])
-						#continue
-					
 					if re.findall("<ref>[\d\D]*?</ref>|<Ref>[\d\D]*?</Ref>", self.section_text[i][j][k]):
 						self.section_text[i][j][k] = re.sub("<ref>[\d\D]*?</ref>|<Ref>[\d\D]*?</Ref>", "", self.section_text[i][j][k])
-
-						if re.findall("\w", self.section_text[i][j][k]):
+						if len(self.section_text[i][j][k].split()) > 2: #number of words > 2
 							sentence.append(True)
-						else:
-							if sentence:
-								sentence[-1] = True
-							self.section_text[i][j].remove(self.section_text[i][j][k])
-							k = k - 1
-					else:
+					elif len(self.section_text[i][j][k].split()) > 2: #number of words > 2
 						sentence.append(False)
+				self.section_text[i][j] = filter(lambda x : len(x.split())> 2,self.section_text[i][j]) #number of words > 2
 				paragraph.append(sentence)
 			citation.append(paragraph)
 		self.citation = citation
