@@ -27,16 +27,16 @@ def remove_braces(text):
             template.name.matches("ref label"):
             text = text.replace(template.encode('utf-8'), "<Ref></Ref>") #standard for the citations
         elif template.name.matches("harvcoltxt")| \
-                template.name.matches("harvcolnb"):
-                result = template.get(1).value.encode("utf-8")
-                if len(template.params) == 5:
-                    result = result + " & " +  template.get(2).value.encode("utf-8")
-                elif len(template.params) == 6:
-                    result = result + ", " +  template.get(2).value.encode("utf-8")  + " & " +  template.get(3).value.encode("utf-8")
-                elif  len(template.params) > 6:
-                    result = result + " et al."
-                    result = result + " " + "<Ref></Ref>"
-                    text = text.replace(template.encode('utf-8'), result)
+            template.name.matches("harvcolnb"):
+            result = template.get(1).value.encode("utf-8")
+            if len(template.params) == 5:
+                result += " & " +  template.get(2).value.encode("utf-8")
+            elif len(template.params) == 6:
+                result += ", " +  template.get(2).value.encode("utf-8")  + " & " +  template.get(3).value.encode("utf-8")
+            elif  len(template.params) > 6:
+                result += " et al."
+            result += " " + "<Ref></Ref>"
+            text = text.replace(template.encode('utf-8'), result)
         elif  template.name.matches("pad") | \
                 template.name.matches("in5") | \
                 template.name.matches("indent") | \
@@ -57,7 +57,7 @@ def remove_braces(text):
             else:
                 text = text.replace(template.encode('utf-8'), " ")
         elif template.name.matches("Thinsp") | \
-                template.name.matches("Plain space"):
+            template.name.matches("Plain space"):
             if template.has(1):
                 text = text.replace(template.encode('utf-8'), " "+ template.get(1).value.encode('utf-8') + " ")
             else:
@@ -65,104 +65,18 @@ def remove_braces(text):
         elif template.name.matches("thinspace"):
             result = "" 
             for item in template.params:
-                    result = result + item.encode("utf-8") + " "
+                    result += item.encode("utf-8") + " "
             text = text.replace(template.encode('utf-8'), result)
-#			elif template.name.matches("talk quote"):
-#				reference = ""
-#				if template.has("by"):
-#					reference = "\n -- User:" + template.get("by").value.encode('utf-8') 
-#				if template.has("source"):
-#					reference = reference + ", " + template.get("source").value.encode('utf-8')
-#				if template.has("text"):
-#					text = text.replace(template.encode('utf-8'), template.get("quote").value.encode('utf-8') + reference)
-#				elif template.has("1"):
-#					text = text.replace(template.encode('utf-8'), template.get("1").value.encode('utf-8') + reference)
-#			elif template.name.matches("Cquote"):
-#				reference = ""
-#				if template.has("author"):
-#					reference = "\n --" + template.get("author").value.encode('utf-8') 
-#				if template.has("source"):
-#					reference = reference + ", " + template.get("source").value.encode('utf-8')
-#				if template.has("text"):
-#					text = text.replace(template.encode('utf-8'), template.get("quote").value.encode('utf-8') + reference)
-#				elif template.has("1"):
-#					text = text.replace(template.encode('utf-8'), template.get("1").value.encode('utf-8') + reference)
-#			elif template.name.matches("Rquote"):
-#				reference = ""
-#				if template.has("author"):
-#					reference = "\n --" + template.get("author").value.encode('utf-8') 
-#				elif template.has("3"):
-#					reference = "\n --" + template.get("3").value.encode('utf-8') 
-#				if template.has("source"):
-#					reference = reference + ", " + template.get("source").value.encode('utf-8')
-#				elif template.has("4"):
-#					reference = reference + ", " + template.get("4").value.encode('utf-8') 
-#				if template.has("quote"):
-#					text = text.replace(template.encode('utf-8'), template.get("quote").value.encode('utf-8') + reference)
-#				elif template.has("2"):
-#					text = text.replace(template.encode('utf-8'), template.get("2").value.encode('utf-8') + reference)
-#			elif template.name.matches("Quote"): 
-#				reference = ""
-#				if template.has("author"):
-#					reference = "\n --" + template.get("author").value.encode('utf-8') 
-#				if template.has("title"):
-#					reference =  reference + ",\n" + template.get("title").value.encode('utf-8')
-#				if template.has("source"):
-#					reference = reference + ",\n" + template.get("source").value.encode('utf-8')
-#				if template.has("text"):
-#					text = text.replace(template.encode('utf-8'), template.get("text").value.encode('utf-8') + reference)
-#				elif template.has("1"):
-#					text = text.replace(template.encode('utf-8'), template.get("1").value.encode('utf-8') + reference)
-#			elif template.name.matches("Quote box") | \
-#			     template.name.matches("Quote frame"): #Correct
-#				reference = ""
-#				if template.has("author"):
-#					reference = "\n --" + template.get("author").value.encode('utf-8') 
-#				elif template.has("2"):
-#					reference = "\n --" + template.get("2").value.encode('utf-8')
-#				if template.has("title"):
-#					reference =  reference + ", " + template.get("title").value.encode('utf-8')
-#				elif template.has("3"):
-#					text = text.replace(template.encode('utf-8'), template.get("3").value.encode('utf-8') + reference)
-#				if template.has("4"):
-#					reference = reference + ", " + template.get("4").value.encode('utf-8')
-#				if template.has("quote"):
-#					text = text.replace(template.encode('utf-8'), template.get("quote").value.encode('utf-8') + reference)
-#				elif template.has("1"):
-#					text = text.replace(template.encode('utf-8'), template.get("1").value.encode('utf-8') + reference)
-#               elif template.name.matches("Poemquote"):
-#				reference = ""
-#				if template.has("sign"):
-#					reference = "\n --" + template.get("sign").value.encode('utf-8') 
-#				elif template.has("2"):
-#					reference = "\n --" + template.get("2").value.encode('utf-8')
-#				if template.has("char"):
-#					reference =  reference + ", " + template.get("char").value.encode('utf-8')
-#				elif template.has("3"):
-#					text = text.replace(template.encode('utf-8'), template.get("3").value.encode('utf-8') + reference)
-#				if template.has("source"):
-#					reference = reference + ", " + template.get("source").value.encode('utf-8')
-#				elif template.has("4"):
-#					text = text.replace(template.encode('utf-8'), template.get("4").value.encode('utf-8') + reference)
-#				if template.has("quote"):
-#					text = text.replace(template.encode('utf-8'), template.get("quote").value.encode('utf-8') + reference)
-#				elif template.has("1"):
-#					text = text.replace(template.encode('utf-8'), template.get("1").value.encode('utf-8') + reference)
-        elif template.name.matches("font color"):
-            if not template.has("text"):
+        elif template.name.matches("lang") | \
+            template.name.matches("align") | \
+            template.name.matches("Verse translation") | \
+            template.name.matches("script"):
                 text = text.replace(template.encode('utf-8'), template.get(2).value.encode('utf-8'))
-            else:
-                text = text.replace(template.encode('utf-8'), template.get("text").value.encode('utf-8'))
         elif (template.name.matches("Hanging indent") |
         template.name.matches("block indent") |
         template.name.matches("font") |
         template.name.matches("Nowrap") |
         template.name.matches("strong") |
-# template.name.matches("talk quote inline") | \
-#			template.name.matches("tq") | \
-#			template.name.matches("tqq") | \
-#			template.name.matches("tqi") | \
-#			template.name.matches("tqqi") | \
         template.name.matches("noitalic") | 
         template.name.matches("nobold") | 
         template.name.matches("yesitalic") | 
@@ -209,16 +123,28 @@ def remove_braces(text):
         template.name.matches("Italics after") |
         template.name.matches("Avoid wrap") |
         template.name.matches("avoidwrap") |
-        template.name.matches("awrap")):
+        template.name.matches("awrap") |
+        template.name.matches("strikethrough") |
+        template.name.matches("Strike") |
+        template.name.matches("S") |
+        template.name.matches("Strikethrough color") |
+        template.name.matches("highlight") | 
+        template.name.matches("highlight round") |
+        template.name.matches("abbr") | 
+        template.name.matches("subst:poem") |
+        template.name.matches("small") | 
+        template.name.matches("smaller") | 
+        template.name.matches("larger") | 
+        template.name.matches("bigger") | 
+        template.name.matches("big") | 
+        template.name.matches("huge") | 
+        template.name.matches("samp") |
+        template.name.matches("Pre") |
+        bool(re.search("(!|)(b|m|)xt(d|n)",template.name.encode('utf-8')))):
             if template.has("text"):
                 text = text.replace(template.encode('utf-8'), template.get("text").value.encode('utf-8'))
             else:
                 text = text.replace(template.encode('utf-8'), template.get(1).value.encode('utf-8'))
-        elif template.name.matches("lang") | \
-            template.name.matches("align") | \
-            template.name.matches("Verse translation") | \
-            template.name.matches("script"):
-            text = text.replace(template.encode('utf-8'), template.get(2).value.encode('utf-8'))
         elif template.name.matches("section link"):
             result = ""
             if not template.has("2"):
@@ -230,8 +156,8 @@ def remove_braces(text):
                 result = param[0].encode('utf-8') + ": " 
                 for i in range(len(param)-1):
                     if i != 0:
-                        result = result + ", "
-                    result = result + param[i+1].encode('utf-8')
+                        result += ", "
+                    result += param[i+1].encode('utf-8')
             text = text.replace(template.encode('utf-8'), result)
         elif template.name.matches("nowraplinks"):
             if template.has(1):
@@ -249,7 +175,7 @@ def remove_braces(text):
         elif template.name.matches("text"):
             result = ""
             for item in template.params:
-                result = result + item.encode('utf-8')
+                result += item.encode('utf-8')
             text = text.replace(template.encode('utf-8'), result)
         elif template.name.matches("See above"):
             if len(template.params) == 0:
@@ -261,25 +187,6 @@ def remove_braces(text):
                 text = text.replace(template.encode('utf-8'), "(see below)")
             elif len(template.params) == 1:
                 text = text.replace(template.encode('utf-8'), "(see "+ template.get(1).value.encode('utf-8')+")")
-        elif template.name.matches("strikethrough") | \
-                template.name.matches("Strike") | \
-                template.name.matches("S") | \
-                template.name.matches("Strikethrough color") | \
-                template.name.matches("highlight") | \
-                template.name.matches("highlight round") | \
-                template.name.matches("abbr") | \
-                template.name.matches("subst:poem") | \
-                template.name.matches("small") | \
-                template.name.matches("smaller") | \
-                template.name.matches("larger") | \
-                template.name.matches("bigger") | \
-                template.name.matches("big") | \
-                template.name.matches("huge") | \
-                template.name.matches("samp") | \
-                template.name.matches("Pre") | \
-                bool(re.search("(!|)(b|m|)xt(d|n)",template.name.encode('utf-8'))):
-            print template.encode("utf-8")
-            text = text.replace(template.encode('utf-8'), template.get(1).value.encode('utf-8'))
         elif template.name.matches("Pre2"):
             if len(template.params) == 1:
                 text = text.replace(template.encode('utf-8'), template.get(1).value.encode('utf-8'))
@@ -301,11 +208,10 @@ def remove_braces(text):
                 text = text.replace(template.encode('utf-8'), '[')
             else:
                 text = text.replace(template.encode('utf-8'), '['+ template.get(1).value.encode('utf-8') + ']')
-            #Treat order
         elif template.name.matches("gaps"):
             result = ""
             for item in template.params:
-                result = result + item.encode('utf-8') + " "
+                result += item.encode('utf-8') + " "
             text = text.replace(template.encode('utf-8'), result)
         elif template.name.matches("transl") | \
                 template.name.matches("resize") | \
